@@ -1,0 +1,29 @@
+{
+  "name": "nerkh-gold-price-fetcher",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A testing tool for Nerkh.io gold price API endpoints - Developed by Nerkh Web Service Team",
+  "main": "nerkh-gold-price-fetcher.js",
+  "scripts": {
+    "start": "node nerkh-gold-price-fetcher.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup": "cp .env.example .env && echo \"Please edit .env file with your API token from nerkh.io\""
+  },
+  "keywords": [
+    "nerkh",
+    "gold",
+    "price",
+    "api",
+    "testing"
+  ],
+  "author": "Nerkh Web Service Team - Testing Department",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "chalk": "^5.3.0",
+    "dotenv": "^16.4.5"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
