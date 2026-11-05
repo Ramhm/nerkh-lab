@@ -1,0 +1,2685 @@
+openapi: 3.1.0
+info:
+  title: Nerkh API
+  description: |
+    API documentation for Nerkh services including currency, crypto, and gold prices.
+
+    > **Version 2 (V2)** has been added. V2 endpoints include 24h change percentage (`ch_24h_percent`) and 24h price range (`24hour`). Simplified lite endpoints are also available under `/v2/prices/lite/`.
+
+    ## Authentication Methods
+    The API supports two authentication methods:
+
+    1. **Bearer Token Authentication**
+       - Use the `Authorization: Bearer YOUR_TOKEN` header
+       - Token can be obtained from the auth endpoints
+       - Suitable for long-term access
+
+    2. **API Key Authentication**
+       - Use the `x-api-key` query parameter
+       - Format: `?x-api-key=YOUR_API_KEY`
+       - Suitable for quick access and testing
+
+    Choose the authentication method that best suits your needs. Both methods provide secure access to the API endpoints.
+
+    ## API Routes
+
+    ### V2
+
+    #### All items
+    - GET /v2/prices/json/all - Get all item prices with 24h change (JSON)
+    - GET /v2/prices/xml/all - Get all item prices with 24h change (XML)
+
+    #### Lite (Simplified)
+    - GET /v2/prices/json/lite - Get all prices simplified (JSON)
+    - GET /v2/prices/xml/lite - Get all prices simplified (XML)
+    - GET /v2/prices/json/lite/currency - Get currency prices simplified (JSON)
+    - GET /v2/prices/xml/lite/currency - Get currency prices simplified (XML)
+    - GET /v2/prices/json/lite/gold - Get gold prices simplified (JSON)
+    - GET /v2/prices/xml/lite/gold - Get gold prices simplified (XML)
+    - GET /v2/prices/json/lite/crypto - Get crypto prices simplified (JSON)
+    - GET /v2/prices/xml/lite/crypto - Get crypto prices simplified (XML)
+
+    #### Gold
+    - GET /v2/prices/json/gold - Get all gold prices with 24h change (JSON)
+    - GET /v2/prices/xml/gold - Get all gold prices with 24h change (XML)
+    - GET /v2/prices/json/gold/{gold} - Get specific gold price (JSON)
+    - GET /v2/prices/xml/gold/{gold} - Get specific gold price (XML)
+
+    Available gold types (V2): <span style="color: red">GOLD18K</span>, <span style="color: red">GOLD24K</span>, <span style="color: red">GOLD18K_STOCK</span>, <span style="color: red">OUNCE</span>, <span style="color: red">OUNCE_PLATINUM</span>, <span style="color: red">OUNCE_SILVER</span>, <span style="color: red">MAZANEH</span>, <span style="color: red">MESGHAL</span>, <span style="color: red">SEKE_EMAMI</span>, <span style="color: red">SEKE_BAHAR</span>, <span style="color: red">SEKE_NIM</span>, <span style="color: red">SEKE_ROB</span>, <span style="color: red">SEKE_1G</span>, <span style="color: red">SEKE_PRS100</span>, <span style="color: red">SEKE_PRS200</span>, <span style="color: red">SEKE_PRS400</span>, <span style="color: red">SEKE_PRS500</span>, <span style="color: red">SEKE_PRS700</span>, <span style="color: red">GOLD_FUTURES</span>, <span style="color: red">MILLI_GOLD18K</span>, <span style="color: red">TALASEA_GOLD_18K</span>, <span style="color: red">TECHNOGOLD_GOLD_18K</span>
+
+    #### Currency
+    - GET /v2/prices/json/currency - Get all currency prices with 24h change (JSON)
+    - GET /v2/prices/xml/currency - Get all currency prices with 24h change (XML)
+    - GET /v2/prices/json/currency/{currency} - Get specific currency price (JSON)
+    - GET /v2/prices/xml/currency/{currency} - Get specific currency price (XML)
+
+    Available currencies (V2): <span style="color: red">USD</span>, <span style="color: red">AED</span>, <span style="color: red">EUR</span>, <span style="color: red">GBP</span>, <span style="color: red">TRY</span>, <span style="color: red">QAR</span>, <span style="color: red">CHF</span>, <span style="color: red">CNY</span>, <span style="color: red">CAD</span>
+
+    #### Crypto
+    - GET /v2/prices/json/crypto - Get all crypto prices with 24h change (JSON)
+    - GET /v2/prices/xml/crypto - Get all crypto prices with 24h change (XML)
+    - GET /v2/prices/json/crypto/{crypto} - Get specific crypto price (JSON)
+    - GET /v2/prices/xml/crypto/{crypto} - Get specific crypto price (XML)
+
+    Available cryptocurrencies (V2): <span style="color: red">BTC</span>, <span style="color: red">ETH</span>, <span style="color: red">USDT</span>, <span style="color: red">XRP</span>, <span style="color: red">DOT</span>, <span style="color: red">ADA</span>, <span style="color: red">DASH</span>, <span style="color: red">DOGE</span>, <span style="color: red">BNB</span>, <span style="color: red">TRX</span>, <span style="color: red">LTC</span>
+
+    #### Price History
+    - GET /v2/prices/history/{type}/{symbol} - Get time-aligned price history for a symbol (JSON)
+    - Supported types: `gold`, `currency`, `crypto`
+    - The `range` query parameter selects the window and resolution: `24h`, `48h` (hourly points), `7d`, `14d`, `30d` (daily points)
+    - The `limit` query parameter optionally caps the number of returned points (newest kept)
+
+    ### V1
+
+    #### All items
+    - GET /v1/prices/json/all - Get all item prices (JSON)
+    - GET /v1/prices/xml/all - Get all item prices (XML)
+
+    #### Gold
+    - GET /v1/prices/json/gold - Get all gold prices (JSON)
+    - GET /v1/prices/xml/gold - Get all gold prices (XML)
+    - GET /v1/prices/json/gold/{gold} - Get specific gold price (JSON)
+    - GET /v1/prices/xml/gold/{gold} - Get specific gold price (XML)
+    
+    Available gold types (V1): <span style="color: red">GOLD18K</span>, <span style="color: red">GOLD24K</span>, <span style="color: red">OUNCE</span>, <span style="color: red">MAZANEH</span>, <span style="color: red">SEKE_EMAMI</span>, <span style="color: red">SEKE_BAHAR</span>, <span style="color: red">SEKE_NIM</span>, <span style="color: red">SEKE_ROB</span>, <span style="color: red">SEKE_1G</span>, <span style="color: red">SEKE_PRS100</span>, <span style="color: red">SEKE_PRS200</span>, <span style="color: red">SEKE_PRS400</span>, <span style="color: red">SEKE_PRS500</span>, <span style="color: red">SEKE_PRS700</span>
+
+    #### Currency
+    - GET /v1/prices/json/currency - Get all currency prices (JSON)
+    - GET /v1/prices/xml/currency - Get all currency prices (XML)
+    - GET /v1/prices/json/currency/{currency} - Get specific currency price (JSON)
+    - GET /v1/prices/xml/currency/{currency} - Get specific currency price (XML)
+    
+    Available currencies (V1): <span style="color: red">USD</span>, <span style="color: red">EUR</span>, <span style="color: red">AED</span>, <span style="color: red">GBP</span>, <span style="color: red">TRY</span>
+
+    #### Crypto
+    - GET /v1/prices/json/crypto - Get all crypto prices (JSON)
+    - GET /v1/prices/xml/crypto - Get all crypto prices (XML)
+    - GET /v1/prices/json/crypto/{crypto} - Get specific crypto price (JSON)
+    - GET /v1/prices/xml/crypto/{crypto} - Get specific crypto price (XML)
+    
+    Available cryptocurrencies (V1): <span style="color: red">BTC</span>, <span style="color: red">ETH</span>, <span style="color: red">USDT</span>, <span style="color: red">XRP</span>
+
+    ### Common
+    - GET /info - Get API information
+    - POST /v1/auth/validate - Validate token
+    - POST /v1/auth/validate - Expire token
+    - POST /v1/auth/validate - Deactivate token
+
+  version: 1.181.0
+  contact:
+    name: Nerkh API Support
+    email: Info@nerkh.io
+
+servers:
+  - url: https://api.nerkh.io
+    description: API v1
+  - url: https://api.nerkh.io
+    description: API v2
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: x-api-key
+      description: API key for authentication via query parameter
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token for authentication via Authorization header
+
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        status:
+          type: integer
+          description: HTTP status code
+      examples:
+        invalidToken:
+          value:
+            error: "Invalid token"
+            status: 401
+        expiredToken:
+          value:
+            error: "Token has expired"
+            status: 401
+        deactivatedToken:
+          value:
+            error: "Token is deactivated"
+            status: 401
+        missingAuth:
+          value:
+            error: "Authorization header is required"
+            status: 401
+        invalidAuthFormat:
+          value:
+            error: "Authorization header must use Bearer scheme"
+            status: 401
+        emptyToken:
+          value:
+            error: "Token is required"
+            status: 401
+
+    NotFoundResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        status:
+          type: integer
+          description: HTTP status code
+      example:
+        message: "Route not found"
+        status: 404
+
+    TokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT token
+        expires_in:
+          type: integer
+          description: Token expiration time in seconds
+      example:
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        expires_in: 3600
+
+    PriceResponse:
+      type: object
+      properties:
+        price:
+          type: number
+          description: Current price
+        timestamp:
+          type: string
+          format: date-time
+          description: Price timestamp
+        currency:
+          type: string
+          description: Currency code
+      example:
+        price: 1.2345
+        timestamp: "2024-04-24T12:00:00Z"
+        currency: "USD"
+
+    RateLimitResponse:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: IP address
+        level:
+          type: integer
+          description: Rate limit level
+      example:
+        ip: "192.168.1.1"
+        level: 1
+
+paths:
+  /info:
+    get:
+      summary: Get API Information
+      description: Get general information about the API
+      tags:
+        - Info
+      responses:
+        '200':
+          description: Successful response
+  
+
+
+  /v1/auth/validate:
+    post:
+      summary: Validate token
+      description: Validate a JWT token
+      tags:
+        - Auth
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X POST 'https://api.nerkh.io/v1/auth/token/validate' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Validation message
+                  user:
+                    type: object
+                    properties:
+                      first_name:
+                        type: string
+                        description: User's first name
+                      last_name:
+                        type: string
+                        description: User's last name
+              example:
+                message: "Token is valid"
+                user:
+                  first_name: "FIRSTNAME"
+                  last_name: "LASTNAME"
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/invalidToken'
+                expiredToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/expiredToken'
+                deactivatedToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/deactivatedToken'
+                missingAuth:
+                  $ref: '#/components/schemas/ErrorResponse/examples/missingAuth'
+                invalidAuthFormat:
+                  $ref: '#/components/schemas/ErrorResponse/examples/invalidAuthFormat'
+                emptyToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/emptyToken'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v1/auth/token/expire:
+    post:
+      summary: Expire token
+      description: Mark a token as expired
+      tags:
+        - Auth
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: Token to expire
+              example:
+                token: "YOUR_TOKEN"
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X POST 'https://api.nerkh.io/v1/auth/token/validate' \
+              -H 'X-API-Key: YOUR_API_KEY' \
+              -H 'Content-Type: application/json' \
+              -d '{"token": "YOUR_TOKEN"}'
+      responses:
+        '200':
+          description: Token expired successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+                example:
+                  message: "Token expired successfully"
+        '401':
+          description: Invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Invalid API key"
+                status: 401
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v1/auth/token/deactivate:
+    post:
+      summary: Deactivate token
+      description: Mark a token as deactivated
+      tags:
+        - Auth
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: Token to deactivate
+              example:
+                token: "YOUR_TOKEN"
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X POST 'https://api.nerkh.io/v1/auth/token/validate' \
+              -H 'X-API-Key: YOUR_API_KEY' \
+              -H 'Content-Type: application/json' \
+              -d '{"token": "YOUR_TOKEN"}'
+      responses:
+        '200':
+          description: Token deactivated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+                example:
+                  message: "Token deactivated successfully"
+        '401':
+          description: Invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Invalid API key"
+                status: 401
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  # Currency Price Endpoints
+  /v1/prices/json/currency:
+    get:
+      summary: Get all currency prices (JSON)
+      description: Get current prices for all currencies in JSON format
+      tags:
+        - Currency Prices
+      parameters:
+        - name: x-api-key
+          in: query
+          required: true
+          schema:
+            type: string
+          description: API key for authentication
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [json, xml]
+            default: json
+          description: Response format (json or xml)
+        - name: timestamp
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: Include timestamp in response
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/json/currency' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        description: Success message
+                        example: "Success"
+                      status:
+                        type: integer
+                        description: HTTP status code
+                        example: 200
+                      timestamp:
+                        type: integer
+                        description: Unix timestamp
+                        example: 1745786995
+                      date:
+                        type: string
+                        description: Formatted date
+                        example: "1404-02-08 00:19:55"
+                      prices:
+                        type: object
+                        properties:
+                          AED:
+                            type: object
+                            properties:
+                              min:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "22698"
+                                  "12hour":
+                                    type: string
+                                    example: "22507"
+                              max:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "22725"
+                                  "12hour":
+                                    type: string
+                                    example: "23011"
+                              current:
+                                type: string
+                                example: "22725"
+                              update:
+                                type: string
+                                example: "1404-02-08 00:18:32"
+                          EUR:
+                            type: object
+                            properties:
+                              min:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "94707"
+                                  "12hour":
+                                    type: string
+                                    example: "93852"
+                              max:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "95025"
+                                  "12hour":
+                                    type: string
+                                    example: "96089"
+                              current:
+                                type: string
+                                example: "94800"
+                              update:
+                                type: string
+                                example: "1404-02-08 00:18:32"
+                          USD:
+                            type: object
+                            properties:
+                              min:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "83133"
+                                  "12hour":
+                                    type: string
+                                    example: "82435"
+                              max:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "83233"
+                                  "12hour":
+                                    type: string
+                                    example: "84281"
+                              current:
+                                type: string
+                                example: "83233"
+                              update:
+                                type: string
+                                example: "1404-02-08 00:18:32"
+              example:
+                data:
+                  message: "Success"
+                  status: 200
+                  timestamp: 1745786995
+                  date: "1404-02-08 00:19:55"
+                  prices:
+                    AED:
+                      min:
+                        "1hour": "22698"
+                        "12hour": "22507"
+                      max:
+                        "1hour": "22725"
+                        "12hour": "23011"
+                      current: "22725"
+                      update: "1404-02-08 00:18:32"
+                    EUR:
+                      min:
+                        "1hour": "94707"
+                        "12hour": "93852"
+                      max:
+                        "1hour": "95025"
+                        "12hour": "96089"
+                      current: "94800"
+                      update: "1404-02-08 00:18:32"
+                    USD:
+                      min:
+                        "1hour": "83133"
+                        "12hour": "82435"
+                      max:
+                        "1hour": "83233"
+                        "12hour": "84281"
+                      current: "83233"
+                      update: "1404-02-08 00:18:32"
+        '401':
+          description: Unauthorized - API key is required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "API key is required"
+                status: 401
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v1/prices/xml/currency:
+    get:
+      summary: Get all currency prices (XML)
+      description: Get current prices for all currencies in XML format
+      tags:
+        - Currency Prices
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/xml/currency' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+                description: XML response containing currency prices
+              example: |
+                <?xml version="1.0" encoding="UTF-8"?>
+                <prices>
+                  <currency>
+                    <code>USD</code>
+                    <price>1.2345</price>
+                    <timestamp>2024-04-24T12:00:00Z</timestamp>
+                  </currency>
+                  <currency>
+                    <code>EUR</code>
+                    <price>0.9876</price>
+                    <timestamp>2024-04-24T12:00:00Z</timestamp>
+                  </currency>
+                </prices>
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/invalidToken'
+                expiredToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/expiredToken'
+                deactivatedToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/deactivatedToken'
+                missingAuth:
+                  $ref: '#/components/schemas/ErrorResponse/examples/missingAuth'
+                invalidAuthFormat:
+                  $ref: '#/components/schemas/ErrorResponse/examples/invalidAuthFormat'
+                emptyToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/emptyToken'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+
+  /v1/prices/json/currency/{currency}:
+    get:
+      summary: Get specific currency price (JSON)
+      description: Get current price for a specific currency in JSON format
+      tags:
+        - Currency Prices
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: currency
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Currency code (e.g., USD, EUR, AED)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/json/currency/USD' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      timestamp:
+                        type: integer
+                        example: 1745478756
+                      date:
+                        type: string
+                        example: "1404-02-04 10:42:36"
+                      prices:
+                        type: object
+                        properties:
+                          "1hour":
+                            type: string
+                            example: "81088"
+                          "12hour":
+                            type: string
+                            example: "81337"
+                          current:
+                            type: string
+                            example: "81088"
+                          update:
+                            type: string
+                            example: "1404-02-04 10:41:56"
+        '401':  
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/invalidToken'
+                expiredToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/expiredToken'
+                deactivatedToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/deactivatedToken'
+                missingAuth:
+                  $ref: '#/components/schemas/ErrorResponse/examples/missingAuth'
+                invalidAuthFormat:
+                  $ref: '#/components/schemas/ErrorResponse/examples/invalidAuthFormat'
+                emptyToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/emptyToken'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v1/prices/xml/currency/{currency}:
+    get:
+      summary: Get specific currency price (XML)
+      description: Get current price for a specific currency in XML format
+      tags:
+        - Currency Prices
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: currency
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Currency code (e.g., USD, EUR, AED)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/xml/currency/USD' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+                description: XML response containing currency prices
+              example: |
+                <?xml version="1.0" encoding="UTF-8"?>
+                <response>
+                  <message>Success</message>
+                  <status>200</status>
+                  <timestamp>1745478584</timestamp>
+                  <date>1404-02-04 10:39:44</date>
+                  <prices>
+                    <currency symbol="USD">
+                      <current>81088</current>
+                      <min>
+                        <one_hour>81088</one_hour>
+                        <twelve_hour>80800</twelve_hour>
+                      </min>
+                      <max>
+                        <one_hour>81088</one_hour>
+                        <twelve_hour>81337</twelve_hour>
+                      </max>
+                      <update>1404-02-04 10:38:49</update>
+                    </currency>
+                  </prices>
+                </response>
+        '401':  
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/invalidToken'
+                expiredToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/expiredToken'
+                deactivatedToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/deactivatedToken'
+                missingAuth:
+                  $ref: '#/components/schemas/ErrorResponse/examples/missingAuth'
+                invalidAuthFormat:
+                  $ref: '#/components/schemas/ErrorResponse/examples/invalidAuthFormat'
+                emptyToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/emptyToken'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+
+  # V1 Gold Price Endpoints
+  /v1/prices/json/gold:
+    get:
+      summary: Get all gold prices (JSON)
+      description: Get current prices for all gold types in JSON format
+      tags:
+        - Gold Prices (V1)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/json/gold' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      timestamp:
+                        type: integer
+                        example: 1745786995
+                      date:
+                        type: string
+                        example: "1404-02-08 00:19:55"
+                      prices:
+                        type: object
+                        properties:
+                          GOLD18K:
+                            type: object
+                            properties:
+                              min:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "6680000"
+                                  "12hour":
+                                    type: string
+                                    example: "6650000"
+                              max:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "6690000"
+                                  "12hour":
+                                    type: string
+                                    example: "6720000"
+                              current:
+                                type: string
+                                example: "6689900"
+                              update:
+                                type: string
+                                example: "1404-02-08 00:14:19"
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v1/prices/xml/gold:
+    get:
+      summary: Get all gold prices (XML)
+      description: Get current prices for all gold types in XML format
+      tags:
+        - Gold Prices (V1)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/xml/gold' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v1/prices/json/gold/{gold}:
+    get:
+      summary: Get specific gold price (JSON)
+      description: Get current price for a specific gold type in JSON format
+      tags:
+        - Gold Prices (V1)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: gold
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Gold type (e.g., GOLD18K, GOLD24K, OUNCE, SEKE_EMAMI)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/json/gold/GOLD18K' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      timestamp:
+                        type: integer
+                        example: 1745478756
+                      date:
+                        type: string
+                        example: "1404-02-04 10:42:36"
+                      prices:
+                        type: object
+                        properties:
+                          "1hour":
+                            type: string
+                            example: "6680000"
+                          "12hour":
+                            type: string
+                            example: "6650000"
+                          current:
+                            type: string
+                            example: "6689900"
+                          update:
+                            type: string
+                            example: "1404-02-04 10:41:56"
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v1/prices/xml/gold/{gold}:
+    get:
+      summary: Get specific gold price (XML)
+      description: Get current price for a specific gold type in XML format
+      tags:
+        - Gold Prices (V1)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: gold
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Gold type (e.g., GOLD18K, GOLD24K, OUNCE, SEKE_EMAMI)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/xml/gold/GOLD18K' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+
+  # V1 Crypto Price Endpoints
+  /v1/prices/json/crypto:
+    get:
+      summary: Get all crypto prices (JSON)
+      description: Get current prices for all cryptocurrencies in JSON format
+      tags:
+        - Crypto Prices (V1)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/json/crypto' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      timestamp:
+                        type: integer
+                        example: 1745786995
+                      date:
+                        type: string
+                        example: "1404-02-08 00:19:55"
+                      prices:
+                        type: object
+                        properties:
+                          BTC:
+                            type: object
+                            properties:
+                              min:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "7700000000"
+                                  "12hour":
+                                    type: string
+                                    example: "7650000000"
+                              max:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "7750000000"
+                                  "12hour":
+                                    type: string
+                                    example: "7800000000"
+                              current:
+                                type: string
+                                example: "7744750298"
+                              update:
+                                type: string
+                                example: "1404-02-08 00:17:27"
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v1/prices/xml/crypto:
+    get:
+      summary: Get all crypto prices (XML)
+      description: Get current prices for all cryptocurrencies in XML format
+      tags:
+        - Crypto Prices (V1)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/xml/crypto' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v1/prices/json/crypto/{crypto}:
+    get:
+      summary: Get specific crypto price (JSON)
+      description: Get current price for a specific cryptocurrency in JSON format
+      tags:
+        - Crypto Prices (V1)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: crypto
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Cryptocurrency code (e.g., BTC, ETH, USDT, XRP)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/json/crypto/BTC' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      timestamp:
+                        type: integer
+                        example: 1745478756
+                      date:
+                        type: string
+                        example: "1404-02-04 10:42:36"
+                      prices:
+                        type: object
+                        properties:
+                          "1hour":
+                            type: string
+                            example: "7700000000"
+                          "12hour":
+                            type: string
+                            example: "7650000000"
+                          current:
+                            type: string
+                            example: "7744750298"
+                          update:
+                            type: string
+                            example: "1404-02-04 10:41:56"
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v1/prices/xml/crypto/{crypto}:
+    get:
+      summary: Get specific crypto price (XML)
+      description: Get current price for a specific cryptocurrency in XML format
+      tags:
+        - Crypto Prices (V1)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: crypto
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Cryptocurrency code (e.g., BTC, ETH, USDT, XRP)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/xml/crypto/BTC' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+
+  # All Prices Combined Endpoints
+  /v1/prices/json/all:
+    get:
+      summary: Get all prices (JSON)
+      description: Get current prices for all gold, currency, and crypto in JSON format
+      tags:
+        - All Prices
+      parameters:
+        - name: x-api-key
+          in: query
+          required: true
+          schema:
+            type: string
+          description: API key for authentication
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [json, xml]
+            default: json
+          description: Response format (json or xml)
+        - name: timestamp
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: Include timestamp in response
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/json/all' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        description: Success message
+                        example: "Success"
+                      status:
+                        type: integer
+                        description: HTTP status code
+                        example: 200
+                      timestamp:
+                        type: integer
+                        description: Unix timestamp
+                        example: 1745786995
+                      date:
+                        type: string
+                        description: Formatted date
+                        example: "1404-02-08 00:19:55"
+                      prices:
+                        type: object
+                        properties:
+                          gold:
+                            type: object
+                            description: Gold prices
+                          currency:
+                            type: object
+                            description: Currency prices
+                          crypto:
+                            type: object
+                            description: Cryptocurrency prices
+              example:
+                data:
+                  message: "Success"
+                  status: 200
+                  timestamp: 1745786995
+                  date: "1404-02-08 00:19:55"
+                  prices:
+                    gold:
+                      GOLD18K:
+                        current: "6689900"
+                        update: "1404-02-08 00:14:19"
+                    currency:
+                      USD:
+                        current: "83233"
+                        update: "1404-02-08 00:18:32"
+                    crypto:
+                      BTC:
+                        current: "7744750298"
+                        update: "1404-02-08 00:17:27"
+        '401':
+          description: Unauthorized - API key is required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "API key is required"
+                status: 401
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+  /v1/prices/xml/all:
+    get:
+      summary: Get all prices (XML)
+      description: Get current prices for all gold, currency, and crypto in XML format
+      tags:
+        - All Prices
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v1/prices/xml/all' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+                description: XML response containing all prices
+              example: |
+                <?xml version="1.0" encoding="UTF-8"?>
+                <prices>
+                  <gold>
+                    <GOLD18K>
+                      <current>6689900</current>
+                      <update>1404-02-08 00:14:19</update>
+                    </GOLD18K>
+                  </gold>
+                  <currency>
+                    <USD>
+                      <current>83233</current>
+                      <update>1404-02-08 00:18:32</update>
+                    </USD>
+                  </currency>
+                  <crypto>
+                    <BTC>
+                      <current>7744750298</current>
+                      <update>1404-02-08 00:17:27</update>
+                    </BTC>
+                  </crypto>
+                </prices>
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/invalidToken'
+                expiredToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/expiredToken'
+                deactivatedToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/deactivatedToken'
+                missingAuth:
+                  $ref: '#/components/schemas/ErrorResponse/examples/missingAuth'
+                invalidAuthFormat:
+                  $ref: '#/components/schemas/ErrorResponse/examples/invalidAuthFormat'
+                emptyToken:
+                  $ref: '#/components/schemas/ErrorResponse/examples/emptyToken'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+
+  ###############################################################################
+  # V2 PRICE ENDPOINTS
+  ###############################################################################
+
+  # V2 Currency Price Endpoints
+  /v2/prices/json/currency:
+    get:
+      summary: "V2: Get all currency prices (JSON)"
+      description: Get current prices for all currencies with 24h change in JSON format
+      tags:
+        - Currency Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/json/currency' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      count:
+                        type: integer
+                        example: 5
+                      timestamp:
+                        type: integer
+                        example: 1745786995
+                      date:
+                        type: string
+                        example: "1404-02-08 00:19:55"
+                      prices:
+                        type: object
+                        properties:
+                          USD:
+                            type: object
+                            properties:
+                              min:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "83133"
+                                  "12hour":
+                                    type: string
+                                    example: "82435"
+                                  "24hour":
+                                    type: string
+                                    example: "82000"
+                              max:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "83233"
+                                  "12hour":
+                                    type: string
+                                    example: "84281"
+                                  "24hour":
+                                    type: string
+                                    example: "84500"
+                              current:
+                                type: string
+                                example: "83233"
+                              ch_24h_percent:
+                                type: number
+                                example: 0.45
+                              update:
+                                type: string
+                                example: "1404-02-08 00:18:32"
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/xml/currency:
+    get:
+      summary: "V2: Get all currency prices (XML)"
+      description: Get current prices for all currencies with 24h change in XML format
+      tags:
+        - Currency Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/xml/currency' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/json/currency/{currency}:
+    get:
+      summary: "V2: Get specific currency price (JSON)"
+      description: Get current price for a specific currency with 24h change in JSON format
+      tags:
+        - Currency Prices (V2)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: currency
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Currency code (e.g., USD, EUR, AED)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/json/currency/USD' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      timestamp:
+                        type: integer
+                        example: 1745478756
+                      date:
+                        type: string
+                        example: "1404-02-04 10:42:36"
+                      prices:
+                        type: object
+                        properties:
+                          "1hour":
+                            type: string
+                            example: "81088"
+                          "12hour":
+                            type: string
+                            example: "81337"
+                          "24hour":
+                            type: string
+                            example: "80800"
+                          current:
+                            type: string
+                            example: "81088"
+                          ch_24h_percent:
+                            type: number
+                            example: -0.12
+                          update:
+                            type: string
+                            example: "1404-02-04 10:41:56"
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/xml/currency/{currency}:
+    get:
+      summary: "V2: Get specific currency price (XML)"
+      description: Get current price for a specific currency with 24h change in XML format
+      tags:
+        - Currency Prices (V2)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: currency
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Currency code (e.g., USD, EUR, AED)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/xml/currency/USD' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+
+  # V2 Gold Price Endpoints
+  /v2/prices/json/gold:
+    get:
+      summary: "V2: Get all gold prices (JSON)"
+      description: Get current prices for all gold types with 24h change in JSON format
+      tags:
+        - Gold Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/json/gold' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      count:
+                        type: integer
+                        example: 13
+                      timestamp:
+                        type: integer
+                        example: 1745786995
+                      date:
+                        type: string
+                        example: "1404-02-08 00:19:55"
+                      prices:
+                        type: object
+                        properties:
+                          GOLD18K:
+                            type: object
+                            properties:
+                              min:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "6680000"
+                                  "12hour":
+                                    type: string
+                                    example: "6650000"
+                                  "24hour":
+                                    type: string
+                                    example: "6630000"
+                              max:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "6690000"
+                                  "12hour":
+                                    type: string
+                                    example: "6720000"
+                                  "24hour":
+                                    type: string
+                                    example: "6750000"
+                              current:
+                                type: string
+                                example: "6689900"
+                              ch_24h_percent:
+                                type: number
+                                example: 0.32
+                              update:
+                                type: string
+                                example: "1404-02-08 00:14:19"
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/xml/gold:
+    get:
+      summary: "V2: Get all gold prices (XML)"
+      description: Get current prices for all gold types with 24h change in XML format
+      tags:
+        - Gold Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/xml/gold' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/json/gold/{gold}:
+    get:
+      summary: "V2: Get specific gold price (JSON)"
+      description: Get current price for a specific gold type with 24h change in JSON format
+      tags:
+        - Gold Prices (V2)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: gold
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Gold type (e.g., GOLD18K, GOLD24K, OUNCE, SEKE_EMAMI)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/json/gold/GOLD18K' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      timestamp:
+                        type: integer
+                        example: 1745478756
+                      date:
+                        type: string
+                        example: "1404-02-04 10:42:36"
+                      prices:
+                        type: object
+                        properties:
+                          "1hour":
+                            type: string
+                            example: "6680000"
+                          "12hour":
+                            type: string
+                            example: "6650000"
+                          "24hour":
+                            type: string
+                            example: "6630000"
+                          current:
+                            type: string
+                            example: "6689900"
+                          ch_24h_percent:
+                            type: number
+                            example: 0.32
+                          update:
+                            type: string
+                            example: "1404-02-04 10:41:56"
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/xml/gold/{gold}:
+    get:
+      summary: "V2: Get specific gold price (XML)"
+      description: Get current price for a specific gold type with 24h change in XML format
+      tags:
+        - Gold Prices (V2)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: gold
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Gold type (e.g., GOLD18K, GOLD24K, OUNCE, SEKE_EMAMI)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/xml/gold/GOLD18K' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+
+  # V2 Crypto Price Endpoints
+  /v2/prices/json/crypto:
+    get:
+      summary: "V2: Get all crypto prices (JSON)"
+      description: Get current prices for all cryptocurrencies with 24h change in JSON format
+      tags:
+        - Crypto Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/json/crypto' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      count:
+                        type: integer
+                        example: 4
+                      timestamp:
+                        type: integer
+                        example: 1745786995
+                      date:
+                        type: string
+                        example: "1404-02-08 00:19:55"
+                      prices:
+                        type: object
+                        properties:
+                          BTC:
+                            type: object
+                            properties:
+                              min:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "7700000000"
+                                  "12hour":
+                                    type: string
+                                    example: "7650000000"
+                                  "24hour":
+                                    type: string
+                                    example: "7600000000"
+                              max:
+                                type: object
+                                properties:
+                                  "1hour":
+                                    type: string
+                                    example: "7750000000"
+                                  "12hour":
+                                    type: string
+                                    example: "7800000000"
+                                  "24hour":
+                                    type: string
+                                    example: "7850000000"
+                              current:
+                                type: string
+                                example: "7744750298"
+                              ch_24h_percent:
+                                type: number
+                                example: 1.23
+                              update:
+                                type: string
+                                example: "1404-02-08 00:17:27"
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/xml/crypto:
+    get:
+      summary: "V2: Get all crypto prices (XML)"
+      description: Get current prices for all cryptocurrencies with 24h change in XML format
+      tags:
+        - Crypto Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/xml/crypto' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/json/crypto/{crypto}:
+    get:
+      summary: "V2: Get specific crypto price (JSON)"
+      description: Get current price for a specific cryptocurrency with 24h change in JSON format
+      tags:
+        - Crypto Prices (V2)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: crypto
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Cryptocurrency code (e.g., BTC, ETH, USDT, XRP)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/json/crypto/BTC' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      timestamp:
+                        type: integer
+                        example: 1745478756
+                      date:
+                        type: string
+                        example: "1404-02-04 10:42:36"
+                      prices:
+                        type: object
+                        properties:
+                          "1hour":
+                            type: string
+                            example: "7700000000"
+                          "12hour":
+                            type: string
+                            example: "7650000000"
+                          "24hour":
+                            type: string
+                            example: "7600000000"
+                          current:
+                            type: string
+                            example: "7744750298"
+                          ch_24h_percent:
+                            type: number
+                            example: 1.23
+                          update:
+                            type: string
+                            example: "1404-02-04 10:41:56"
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/xml/crypto/{crypto}:
+    get:
+      summary: "V2: Get specific crypto price (XML)"
+      description: Get current price for a specific cryptocurrency with 24h change in XML format
+      tags:
+        - Crypto Prices (V2)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: crypto
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Cryptocurrency code (e.g., BTC, ETH, USDT, XRP)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/xml/crypto/BTC' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  # V2 Price History Endpoint
+  /v2/prices/history/{type}/{symbol}:
+    get:
+      summary: "V2: Get price history (JSON)"
+      description: |
+        Get time-aligned price history for a symbol over a configurable window.
+
+        Range-to-resolution mapping:
+        - `24h` / `48h` - hourly points (default `24h`)
+        - `7d` / `14d` / `30d` - daily points
+
+        The `limit` query parameter optionally caps the number of returned points
+        (when lower than the range default, the newest points are kept). Points are
+        returned newest-first.
+      tags:
+        - Price History (V2)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: type
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [gold, currency, crypto]
+            description: Asset type
+        - name: symbol
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Symbol code (e.g., GOLD18K, USD, BTC)
+        - name: range
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [24h, 48h, 7d, 14d, 30d]
+            default: "24h"
+          description: History window and resolution
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+          description: Maximum number of points to return (newest kept)
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/history/gold/GOLD18K?range=24h' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Success"
+                      status:
+                        type: integer
+                        example: 200
+                      count:
+                        type: integer
+                        example: 24
+                      timestamp:
+                        type: integer
+                        example: 1745478756
+                      date:
+                        type: string
+                        example: "1404-02-04 10:42:36"
+                      symbol:
+                        type: string
+                        example: "GOLD18K"
+                      range:
+                        type: string
+                        example: "24h"
+                      prices:
+                        type: array
+                        description: History points, newest first
+                        items:
+                          type: object
+                          properties:
+                            timestamp:
+                              type: integer
+                              description: Unix timestamp for the point
+                              example: 1745478756
+                            price:
+                              type: string
+                              description: Price at that timestamp
+                              example: "16435000000"
+        '400':
+          description: Invalid range or limit parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: History not found for the given type/symbol
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+
+  # V2 All Prices Endpoints
+  /v2/prices/json/all:
+    get:
+      summary: "V2: Get all prices (JSON)"
+      description: Get current prices for all gold, currency, and crypto with 24h change in JSON format
+      tags:
+        - All Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/json/all' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/xml/all:
+    get:
+      summary: "V2: Get all prices (XML)"
+      description: Get current prices for all gold, currency, and crypto with 24h change in XML format
+      tags:
+        - All Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/xml/all' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+
+  # V2 Lite Price Endpoints
+  /v2/prices/json/lite:
+    get:
+      summary: "V2: Get all lite prices (JSON)"
+      description: Get simplified prices for all gold, currency, and crypto (current, 24h change only) in JSON format
+      tags:
+        - Lite Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/json/lite' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/xml/lite:
+    get:
+      summary: "V2: Get all lite prices (XML)"
+      description: Get simplified prices for all gold, currency, and crypto in XML format
+      tags:
+        - Lite Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/xml/lite' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/json/lite/currency:
+    get:
+      summary: "V2: Get lite currency prices (JSON)"
+      description: Get simplified currency prices (current, 24h change only) in JSON format
+      tags:
+        - Lite Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/json/lite/currency' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/xml/lite/currency:
+    get:
+      summary: "V2: Get lite currency prices (XML)"
+      description: Get simplified currency prices in XML format
+      tags:
+        - Lite Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/xml/lite/currency' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/json/lite/gold:
+    get:
+      summary: "V2: Get lite gold prices (JSON)"
+      description: Get simplified gold prices (current, 24h change only) in JSON format
+      tags:
+        - Lite Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/json/lite/gold' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/xml/lite/gold:
+    get:
+      summary: "V2: Get lite gold prices (XML)"
+      description: Get simplified gold prices in XML format
+      tags:
+        - Lite Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/xml/lite/gold' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/json/lite/crypto:
+    get:
+      summary: "V2: Get lite crypto prices (JSON)"
+      description: Get simplified crypto prices (current, 24h change only) in JSON format
+      tags:
+        - Lite Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/json/lite/crypto' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+
+  /v2/prices/xml/lite/crypto:
+    get:
+      summary: "V2: Get lite crypto prices (XML)"
+      description: Get simplified crypto prices in XML format
+      tags:
+        - Lite Prices (V2)
+      security:
+        - BearerAuth: []
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET 'https://api.nerkh.io/v2/prices/xml/lite/crypto' \
+            --header 'Content-Type: application/json' \
+              -H 'Authorization: Bearer YOUR_TOKEN'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '401':
+          description: Token validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Route not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
